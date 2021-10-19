@@ -9,7 +9,7 @@ class Sudoku:
                 self.grid[j][i] = tmp[i]
 
     def display(self):
-        file = open(input("Rentrez le nom du fichier de résolution: "), "w")
+        file = open(input("Entrez le nom du fichier pour le Sudoku résolu: "), "w")
         for i in range(9):
             if i % 3 == 0 and i > 0:
                 file.write("\n")
