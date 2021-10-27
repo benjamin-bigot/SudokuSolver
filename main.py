@@ -26,7 +26,7 @@ class Sudoku:
                 if self.grid[i][j] == self.file[i][j]:
                     ttk.Label(frm, text=str(self.grid[i][j])).grid(column=j, row=i)
                 else:
-                    ttk.Label(frm, text=str(self.grid[i][j]), background="#000fff000").grid(column=j, row=i)
+                    ttk.Label(frm, text=str(self.grid[i][j]), background="red").grid(column=j, row=i)
                 file.write(self.grid[i][j])
                 print(self.grid[i][j], end=' ')
             print("\n")
