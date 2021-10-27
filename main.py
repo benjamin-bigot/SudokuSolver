@@ -1,15 +1,21 @@
+from tkinter import *
+from tkinter import ttk
+
+
 class Sudoku:
     def __init__(self, filename):
         self.file = open(filename, "r").readlines()
-        self.grid = self.cells = [[" " for x in range(9)] for y in range(9)]
+        self.grid = [[" " for _ in range(9)] for _ in range(9)]
 
         for i in range(9):
             for j in range(9):
-                tmp = self.file[j]
-                self.grid[j][i] = tmp[i]
+                self.grid[j][i] = self.file[j][i]
 
     def display(self):
         file = open(input("Entrez le nom du fichier pour le Sudoku résolu: "), "w")
+        root = Tk()
+        frm = ttk.Frame(root, padding=10)
+        frm.grid()
         for i in range(9):
             if i % 3 == 0 and i > 0:
                 file.write("\n")
@@ -17,10 +23,15 @@ class Sudoku:
                 if j % 3 == 0 and j > 0:
                     file.write(" ")
                     print(" ", end=' ')
+                if self.grid[i][j] == self.file[i][j]:
+                    ttk.Label(frm, text=str(self.grid[i][j])).grid(column=j, row=i)
+                else:
+                    ttk.Label(frm, text=str(self.grid[i][j]), background="#000fff000").grid(column=j, row=i)
                 file.write(self.grid[i][j])
                 print(self.grid[i][j], end=' ')
             print("\n")
             file.write("\n")
+        root.mainloop()
         file.close()
 
     def line_check(self, num, j):
@@ -55,8 +66,7 @@ class Sudoku:
         for i in range(9):
             for j in range(9):
                 if self.grid[j][i] == '_':
-                    for k in range(9):
-                        k += 1
+                    for k in range(1, 10):
                         if self.possible_position(i, j, k) is True:
                             self.grid[j][i] = str(k)
                             self.resolution()
